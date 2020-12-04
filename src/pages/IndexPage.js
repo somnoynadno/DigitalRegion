@@ -1,0 +1,72 @@
+import React from 'react'
+import {Container, Grid, Image, Menu, Placeholder, Segment} from 'semantic-ui-react'
+
+import barsgroup from '../assets/barsgroup.svg'
+import history from "../history";
+
+export default class IndexPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {activeItem: 'дашборды'};
+    }
+
+    componentDidMount = async () => {
+        // TODO: api call
+    }
+
+    renderSwitch(activeItem) {
+        switch(activeItem) {
+            default:
+                return <Segment>Тут пока пусто</Segment>
+        }
+    }
+
+    handleItemClick = (e, {name}) => this.setState({activeItem: name})
+
+    render() {
+        const {activeItem} = this.state
+
+        return (
+            <Container>
+                <Image src={barsgroup} onClick={() => this.handleItemClick(null, "")}
+                       style={{padding: "20px"}} size='small'/>
+                <Grid stackable columns={2}>
+                    <Grid.Column width={4}>
+                        <Menu fluid vertical tabular>
+                            <Menu.Item
+                                name='дашборды'
+                                active={activeItem === 'дашборды'}
+                                onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                                name='таблица'
+                                active={activeItem === 'таблица'}
+                                onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                                name='статистика'
+                                active={activeItem === 'статистика'}
+                                onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                                name='пользователи'
+                                active={activeItem === 'пользователи'}
+                                onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                                name='выход'
+                                active={activeItem === ''}
+                                onClick={history.push('/logout')}
+                            />
+                        </Menu>
+                    </Grid.Column>
+
+                    <Grid.Column stretched width={12}>
+                        {this.renderSwitch(activeItem)}
+                    </Grid.Column>
+                </Grid>
+            </Container>
+        )
+    }
+}
