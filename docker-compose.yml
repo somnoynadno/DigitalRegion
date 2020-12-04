@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+  bars_frontend:
+    build: .
+    container_name: bars_frontend
+    ports:
+      - 7010:3000
+    restart: "always"
