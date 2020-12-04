@@ -1,24 +1,31 @@
 import React from 'react'
-import {Container, Grid, Image, Menu, Placeholder, Segment} from 'semantic-ui-react'
+import {Container, Grid, Image, Menu, Segment} from 'semantic-ui-react'
 
 import barsgroup from '../assets/barsgroup.svg'
 import history from "../history";
+import {api} from "../http/API";
 
 export default class IndexPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {activeItem: 'дашборды'};
+        this.state = {
+            activeItem: 'дашборды',
+            data: []
+        };
     }
 
     componentDidMount = async () => {
-        // TODO: api call
+        await api.QueryData()
+            .then((r) => {
+                this.setState({data: r});
+            })
     }
 
     renderSwitch(activeItem) {
-        switch(activeItem) {
+        switch (activeItem) {
             default:
-                return <Segment>Тут пока пусто</Segment>
+                return <Segment>Страница на стадии разработки</Segment>
         }
     }
 
@@ -55,9 +62,14 @@ export default class IndexPage extends React.Component {
                                 onClick={this.handleItemClick}
                             />
                             <Menu.Item
+                                name='настройки'
+                                active={activeItem === 'настройки'}
+                                onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
                                 name='выход'
                                 active={activeItem === ''}
-                                onClick={history.push('/logout')}
+                                onClick={() => history.push('/logout')}
                             />
                         </Menu>
                     </Grid.Column>
