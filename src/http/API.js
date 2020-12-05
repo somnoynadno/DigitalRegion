@@ -28,9 +28,20 @@ class API {
         });
     }
 
+    GetUsers() {
+        return new Promise((resolve) => {
+            HTTP.axios.get(`/users/list`)
+                .then(response => {
+                    resolve(response.data);
+                }).catch(error => {
+                HTTP.handleError(error);
+            });
+        });
+    }
+
     ImportCSV(b64) {
         return new Promise((resolve) => {
-            HTTP.axios.get(`/data/send_csv`, {"Data": b64})
+            HTTP.axios.post(`/data/send_csv`, {"Data": b64})
                 .then(response => {
                     resolve(response.data);
                 }).catch(error => {

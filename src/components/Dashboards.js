@@ -14,7 +14,7 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 import {avgScoreByExamType, avgScoreBySchool, sumGradesByExamType,} from "../helpers";
-import {Select} from "semantic-ui-react";
+import {Divider, Select} from "semantic-ui-react";
 
 const COLORS = ['#4caf50', '#cddc39', '#ffc107', '#f44336'];
 const YEARS = [
@@ -61,10 +61,10 @@ export default class Dashboards extends React.Component {
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
-                <br/>
+                <Divider/>
                 <div style={{height: 300}}>
                     <div>
-                        <h2 style={{textAlign: "center"}}>Оценки за период</h2>
+                        <h2 style={{textAlign: "center"}}>Оценки и средний балл по школам</h2>
                         <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
                                 onChange={(event, {value}) => {
                                     this.setState({selectedYear: value})
