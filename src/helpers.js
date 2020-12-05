@@ -1,6 +1,7 @@
 export function sortArrayByKey(array, key, direction) {
-    return array.sort(function(a, b) {
-        let x = a[key]; let y = b[key];
+    return array.sort(function (a, b) {
+        let x = a[key];
+        let y = b[key];
         if (direction === "ascending") {
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         } else {
@@ -45,6 +46,56 @@ export function avgByKey(array, key, avgKeys) {
     }
 
     return sortArrayByKey(result, "Period", "ascending");
+}
+
+export function sumGradesByExamType(array, exam, period) {
+    let result = [];
+    for (let d of array) {
+        let i = containsObjectByKey(d, result, "Grade");
+        if (d["Period"] === period) {
+            if (i === null) {
+                if (d["Exam"] === exam) {
+                    let e = {};
+                    e["Grade"] = d["Grade"];
+                    e.name = "Oценка " + d["Grade"];
+                    e.value = 1;
+                    result.push(e);
+                }
+            } else {
+                if (d["Exam"] === exam) {
+                    result[i].value++;
+                }
+            }
+        }
+    }
+
+    return sortArrayByKey(result, "Grade", "descending");
+}
+
+export function avgScoreBySchool(array, exam, period) {
+    let result = [];
+    for (let d of array) {
+        let i = containsObjectByKey(d, result, "School");
+        if (d["Period"] === period && d["Exam"] === exam) {
+            if (i === null) {
+                let e = {};
+                e["Score"] = d["Score"];
+                e["School"] = d["School"];
+                e.value = 1;
+                result.push(e);
+            } else {
+                result[i].value++;
+                result[i]["Score"] += d["Score"];
+            }
+        }
+    }
+
+    for (let i = 0; i < result.length; i++) {
+        result[i].avg = Math.round(result[i]["Score"] / result[i].value);
+        result[i].name = result[i]["School"];
+    }
+
+    return result;
 }
 
 export function avgScoreByExamType(array) {
