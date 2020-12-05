@@ -6,6 +6,7 @@ import history from "../history";
 import {api} from "../http/API";
 import Dashboards from "../components/Dashboards";
 import DataTable from "../components/DataTable";
+import Preferences from "../components/Preferences";
 
 export default class IndexPage extends React.Component {
     constructor(props) {
@@ -30,6 +31,8 @@ export default class IndexPage extends React.Component {
                 return <Dashboards data={this.state.data}/>
             case 'таблица':
                 return <DataTable data={this.state.data}/>
+            case 'настройки':
+                return <Preferences/>
             default:
                 return <Segment>Страница на стадии разработки</Segment>
         }
