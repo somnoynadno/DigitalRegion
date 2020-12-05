@@ -73,7 +73,7 @@ export default class Users extends React.Component {
 
     render() {
         return <Segment>
-            <h2>Школа №1</h2>
+            <h2>Ваши данные</h2>
             <Input type="file" onChange={this.onFileChange} accept=".csv"/>
             <br/>
             <br/>

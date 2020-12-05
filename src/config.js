@@ -1,1 +1,1 @@
-export const apiAddress = "http://bars.somnoynadno.ru/api";
+export const apiAddress = "http://localhost:7020/api";
