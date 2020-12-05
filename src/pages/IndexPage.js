@@ -8,6 +8,7 @@ import Dashboards from "../components/Dashboards";
 import DataTable from "../components/DataTable";
 import Preferences from "../components/Preferences";
 import Users from "../components/Users";
+import Statistics from "../components/Statistics";
 
 export default class IndexPage extends React.Component {
     constructor(props) {
@@ -36,6 +37,8 @@ export default class IndexPage extends React.Component {
                 return <Preferences/>
             case 'пользователи':
                 return <Users/>
+            case 'статистика':
+                return <Statistics/>
             default:
                 return <Segment>Страница на стадии разработки</Segment>
         }

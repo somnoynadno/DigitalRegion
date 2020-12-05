@@ -3,7 +3,7 @@ import {Pagination, Table} from 'semantic-ui-react'
 import PropTypes from "prop-types";
 import {sortArrayByKey} from "../helpers";
 
-const maxOnPage = 50;
+const maxOnPage = 30;
 
 export default class DataTable extends React.Component {
     constructor(props) {

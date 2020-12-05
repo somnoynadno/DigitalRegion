@@ -39,6 +39,18 @@ class API {
         });
     }
 
+    GetStats(exam, period) {
+        return new Promise((resolve) => {
+            HTTP.axios.get(`/data/stats?exam=${exam}&period=${period}`)
+                .then(response => {
+                    resolve(response.data);
+                }).catch(error => {
+                HTTP.handleError(error);
+            });
+        });
+    }
+
+
     ImportCSV(b64) {
         return new Promise((resolve) => {
             HTTP.axios.post(`/data/send_csv`, {"Data": b64})
