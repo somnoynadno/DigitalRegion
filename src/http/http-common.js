@@ -29,10 +29,7 @@ export let HTTP = {
             if (status === 401) {
                 history.push('/login');
             } else {
-                history.push({
-                    pathname: `/error`,
-                    state: {status: status, message: message},
-                });
+                history.push(`/error?code=${status}`);
             }
         }
     }

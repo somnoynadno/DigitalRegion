@@ -28,6 +28,8 @@ export default class Users extends React.Component {
     };
 
     onFileUpload = () => {
+        if (!this.state.selectedFile) return;
+
         this.setState({disabled: true});
         const formData = new FormData();
 

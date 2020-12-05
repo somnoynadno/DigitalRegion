@@ -10,7 +10,7 @@ class App extends React.Component {
         return (
             <Switch className="App">
                 <Route exact path='/' component={IndexPage}/>
-                <Route exact path='/error' component={ErrorPage}/>
+                <Route path='/error' component={ErrorPage}/>
                 <Route exact path='/login' component={LoginPage}/>
                 <Route exact path='/logout' component={Logout}/>
             </Switch>

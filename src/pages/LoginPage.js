@@ -24,7 +24,6 @@ export default class LoginPage extends React.Component {
             .then((resp) => {
                 if (resp.constructor !== Error) {
                     localStorage.setItem('token', resp["token"]);
-                    localStorage.setItem('user_id', resp["user_id"]);
                     history.push('/');
                 } else {
                     this.setState({errorText: "Неверные логин или пароль"});
