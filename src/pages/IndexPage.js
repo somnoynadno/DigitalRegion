@@ -1,9 +1,11 @@
 import React from 'react'
-import {Container, Grid, Image, Menu, Segment} from 'semantic-ui-react'
+import {Container, Grid, Icon, Image, Menu, Segment} from 'semantic-ui-react'
 
 import barsgroup from '../assets/barsgroup.svg'
 import history from "../history";
 import {api} from "../http/API";
+import Dashboards from "../components/Dashboards";
+import DataTable from "../components/DataTable";
 
 export default class IndexPage extends React.Component {
     constructor(props) {
@@ -24,6 +26,10 @@ export default class IndexPage extends React.Component {
 
     renderSwitch(activeItem) {
         switch (activeItem) {
+            case 'дашборды':
+                return <Dashboards data={this.state.data}/>
+            case 'таблица':
+                return <DataTable data={this.state.data}/>
             default:
                 return <Segment>Страница на стадии разработки</Segment>
         }
@@ -32,7 +38,7 @@ export default class IndexPage extends React.Component {
     handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
     render() {
-        const {activeItem} = this.state
+        const {activeItem} = this.state;
 
         return (
             <Container>
@@ -40,37 +46,56 @@ export default class IndexPage extends React.Component {
                        style={{padding: "20px"}} size='small'/>
                 <Grid stackable columns={2}>
                     <Grid.Column width={4}>
-                        <Menu fluid vertical tabular>
+                        <Menu fluid vertical tabular icon='labeled'>
                             <Menu.Item
                                 name='дашборды'
                                 active={activeItem === 'дашборды'}
                                 onClick={this.handleItemClick}
-                            />
+                            >
+                                <Icon name='chart bar'/>
+                                Дашборды
+                            </Menu.Item>
                             <Menu.Item
                                 name='таблица'
                                 active={activeItem === 'таблица'}
                                 onClick={this.handleItemClick}
-                            />
+                            >
+                                <Icon name='table'/>
+                                Таблица
+                            </Menu.Item>
                             <Menu.Item
                                 name='статистика'
                                 active={activeItem === 'статистика'}
                                 onClick={this.handleItemClick}
-                            />
+                            >
+                                <Icon name='chart pie'/>
+                                Статистика
+                            </Menu.Item>
+                            <i className="fa fa-users" aria-hidden="true"/>
                             <Menu.Item
                                 name='пользователи'
                                 active={activeItem === 'пользователи'}
                                 onClick={this.handleItemClick}
-                            />
+                            >
+                                <Icon name='users'/>
+                                Пользователи
+                            </Menu.Item>
                             <Menu.Item
                                 name='настройки'
                                 active={activeItem === 'настройки'}
                                 onClick={this.handleItemClick}
-                            />
+                            >
+                                <Icon name='settings'/>
+                                Настройки
+                            </Menu.Item>
                             <Menu.Item
                                 name='выход'
                                 active={activeItem === ''}
                                 onClick={() => history.push('/logout')}
-                            />
+                            >
+                                <Icon name='sign-out'/>
+                                Выход
+                            </Menu.Item>
                         </Menu>
                     </Grid.Column>
 
