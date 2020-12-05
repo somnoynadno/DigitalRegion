@@ -29,15 +29,7 @@ export default class Users extends React.Component {
 
     onFileUpload = () => {
         if (!this.state.selectedFile) return;
-
         this.setState({disabled: true});
-        const formData = new FormData();
-
-        formData.append(
-            "myFile",
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        );
 
         let fr = new FileReader();
         fr.readAsText(this.state.selectedFile);

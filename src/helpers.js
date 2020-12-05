@@ -141,3 +141,42 @@ export function avgScoreByExamType(array) {
 
     return sortArrayByKey(result, key, "ascending");
 }
+
+export function doBarChart(array, exam, subject, period) {
+    let result = [
+        {name: "0-30", value: 0},
+        {name: "31-40", value: 0},
+        {name: "41-50", value: 0},
+        {name: "51-60", value: 0},
+        {name: "61-70", value: 0},
+        {name: "71-80", value: 0},
+        {name: "81-90", value: 0},
+        {name: "90-100", value: 0},
+    ];
+
+    for (let d of array) {
+        if (d["Exam"] === exam && d["Subject"] === subject && d["Period"] === period) {
+            let score = d["Score"];
+
+            if (score <= 30) {
+                result[0].value++;
+            } else if (score <= 40) {
+                result[1].value++
+            } else if (score <= 50) {
+                result[2].value++
+            } else if (score <= 60) {
+                result[3].value++
+            } else if (score <= 70) {
+                result[4].value++
+            } else if (score <= 80) {
+                result[5].value++
+            } else if (score <= 90) {
+                result[6].value++
+            } else if (score <= 100) {
+                result[7].value++
+            }
+        }
+    }
+
+    return result;
+}
