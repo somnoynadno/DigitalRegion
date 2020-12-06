@@ -16,8 +16,9 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 import {avgScoreByExamType, avgScoreBySchool, avgScoreBySubjects, doBarChart, sumGradesByExamType,} from "../helpers";
-import {Divider, Select} from "semantic-ui-react";
+import {Divider, Segment, Select} from "semantic-ui-react";
 import {COLORS, EXAMS, MATERIAL, SUBJECTS, YEARS} from "../constans";
+import Statistics from "./Statistics";
 
 const defaultYear = 2019;
 const defaultExam = 'ЕГЭ';
@@ -46,13 +47,14 @@ export default class Dashboards extends React.Component {
     render() {
         return (
             <div style={{width: "100%"}}>
-                <div style={{height: 240, marginBottom: 30}}>
+                <Statistics/>
+                <Segment style={{height: 300}}>
                     <h2 style={{textAlign: "center"}}>Динамика результатов</h2>
                     <ResponsiveContainer>
                         <LineChart
                             data={avgScoreByExamType([...this.state.data])}
                             margin={{
-                                top: 10, right: 30, left: 20, bottom: 30,
+                                top: 10, right: 30, left: 20, bottom: 50,
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3"/>
@@ -64,9 +66,8 @@ export default class Dashboards extends React.Component {
                             <Line name="Средний балл ЕГЭ" type="monotone" dataKey="EGE_score" stroke="blue"/>
                         </LineChart>
                     </ResponsiveContainer>
-                </div>
-                <Divider/>
-                <div style={{height: 300, marginBottom: 160}}>
+                </Segment>
+                <Segment style={{height: 470}}>
                     <div>
                         <h2 style={{textAlign: "center"}}>Оценки и средний балл по школам</h2>
                         <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
@@ -115,9 +116,8 @@ export default class Dashboards extends React.Component {
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                </div>
-                <Divider/>
-                <div style={{height: 270, marginBottom: 150}}>
+                </Segment>
+                <Segment style={{height: 400}}>
                     <h2 style={{textAlign: "center"}}>Распределение баллов для предмета</h2>
                     <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
                             onChange={(event, {value}) => {
@@ -138,7 +138,7 @@ export default class Dashboards extends React.Component {
                             data={doBarChart(this.state.data, this.state.barChartExam,
                                 this.state.barChartSubject, this.state.barChartYear)}
                             margin={{
-                                top: 5, right: 30, left: 20, bottom: 5,
+                                top: 5, right: 30, left: 20, bottom: 120,
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3"/>
@@ -151,9 +151,8 @@ export default class Dashboards extends React.Component {
                     </ResponsiveContainer>
                     <br/>
                     <br/>
-                </div>
-                <Divider/>
-                <div style={{height: 400, marginBottom: 30}}>
+                </Segment>
+                <Segment style={{height: 440, marginBottom: 30}}>
                     <h2 style={{textAlign: "center"}}>Динамика баллов по предметам</h2>
                     <Select placeholder='Выберите экзамен' options={EXAMS} style={{float: "right"}}
                             onChange={(event, {value}) => {
@@ -164,7 +163,7 @@ export default class Dashboards extends React.Component {
                         <LineChart
                             data={avgScoreBySubjects([...this.state.data], this.state.selectedExam)}
                             margin={{
-                                top: 10, right: 30, left: 20, bottom: 30,
+                                top: 10, right: 30, left: 20, bottom: 100,
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3"/>
@@ -180,7 +179,7 @@ export default class Dashboards extends React.Component {
                             }
                         </LineChart>
                     </ResponsiveContainer>
-                </div>
+                </Segment>
             </div>
         );
     }

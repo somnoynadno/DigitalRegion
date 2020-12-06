@@ -15,7 +15,7 @@ export default class IndexPage extends React.Component {
         super(props);
 
         this.state = {
-            activeItem: 'дашборды',
+            activeItem: 'дашборд',
             data: []
         };
     }
@@ -29,7 +29,7 @@ export default class IndexPage extends React.Component {
 
     renderSwitch(activeItem) {
         switch (activeItem) {
-            case 'дашборды':
+            case 'дашборд':
                 return <Dashboards data={this.state.data}/>
             case 'таблица':
                 return <DataTable data={this.state.data}/>
@@ -40,7 +40,7 @@ export default class IndexPage extends React.Component {
             case 'статистика':
                 return <Statistics/>
             default:
-                return <Segment>Страница на стадии разработки</Segment>
+                return <Dashboards data={this.state.data}/>
         }
     }
 
@@ -57,12 +57,12 @@ export default class IndexPage extends React.Component {
                     <Grid.Column width={4}>
                         <Menu fluid vertical tabular icon='labeled'>
                             <Menu.Item
-                                name='дашборды'
-                                active={activeItem === 'дашборды'}
+                                name='дашборд'
+                                active={activeItem === 'дашборд'}
                                 onClick={this.handleItemClick}
                             >
                                 <Icon name='chart bar'/>
-                                Дашборды
+                                Дашборд
                             </Menu.Item>
                             <Menu.Item
                                 name='таблица'
@@ -71,14 +71,6 @@ export default class IndexPage extends React.Component {
                             >
                                 <Icon name='table'/>
                                 Таблица
-                            </Menu.Item>
-                            <Menu.Item
-                                name='статистика'
-                                active={activeItem === 'статистика'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Icon name='chart pie'/>
-                                Статистика
                             </Menu.Item>
                             <i className="fa fa-users" aria-hidden="true"/>
                             <Menu.Item

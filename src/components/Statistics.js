@@ -30,18 +30,19 @@ export default class Statistics extends React.Component {
     }
 
     render() {
-        return <Segment>
-            <Select placeholder='Выберите экзамен' options={EXAMS} defaultValue={defaultExam}
-                    onChange={async (event, {value}) => {
-                        this.setState({exam: value});
-                        await this.fetchStats();
-                    }}/>
+        return <Segment style={{paddingBottom: 30}}>
+            <h2 style={{textAlign: "center"}}>Самое важное</h2>
             <Select placeholder='Выберите год' options={YEARS} defaultValue={defaultPeriod}
                     onChange={async (event, {value}) => {
                         this.setState({period: value});
                         await this.fetchStats();
-                    }}/>
-                    <Divider hidden/>
+                    }} style={{float: "right"}}/>
+            <Select placeholder='Выберите экзамен' options={EXAMS} defaultValue={defaultExam}
+                    onChange={async (event, {value}) => {
+                        this.setState({exam: value});
+                        await this.fetchStats();
+                    }} style={{float: "left"}}/>
+                    <Divider hidden style={{clear: "both"}}/>
             {this.state.stats ?
                 <div>
                     <Statistic.Group size="medium" widths='three'>
