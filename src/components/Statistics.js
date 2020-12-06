@@ -45,7 +45,7 @@ export default class Statistics extends React.Component {
                     <Divider hidden style={{clear: "both"}}/>
             {this.state.stats ?
                 <div>
-                    <Statistic.Group size="medium" widths='three'>
+                    <Statistic.Group size="medium" widths={window.screen.width < 800 ? 'two' : 'three'}>
                         <Statistic color='teal'>
                             <Statistic.Value>{this.state.stats["TotalWorks"]}</Statistic.Value>
                             <Statistic.Label>Всего работ</Statistic.Label>
@@ -60,7 +60,7 @@ export default class Statistics extends React.Component {
                         </Statistic>
                     </Statistic.Group>
                     <Divider hidden/>
-                    <Statistic.Group size="tiny" widths='three'>
+                    <Statistic.Group size="tiny" widths={window.screen.width < 800 ? 'two' : 'three'}>
                         <Statistic color='green'>
                             <Statistic.Value>{this.state.stats["TopSchool"]}</Statistic.Value>
                             <Statistic.Label>Высший балл: {this.state.stats["TopScore"]}</Statistic.Label>
@@ -75,7 +75,7 @@ export default class Statistics extends React.Component {
                         </Statistic>
                     </Statistic.Group>
                     <Divider hidden/>
-                    <Statistic.Group size="mini" widths='four'>
+                    <Statistic.Group size="mini" widths={window.screen.width < 1200 ? 'two' : 'four'}>
                         <Statistic color='green'>
                             <Statistic.Value>{this.state.stats["TopSubject"]}</Statistic.Value>
                             <Statistic.Label>Лучший предмет</Statistic.Label>
