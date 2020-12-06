@@ -67,7 +67,7 @@ export default class Dashboards extends React.Component {
                         </LineChart>
                     </ResponsiveContainer>
                 </Segment>
-                <Segment style={{height: 470}}>
+                <Segment style={{height: window.screen.width < 600 ? 400 : 470}}>
                     <div>
                         <h2 style={{textAlign: "center"}}>Оценки и средний балл по школам</h2>
                         <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
@@ -76,13 +76,13 @@ export default class Dashboards extends React.Component {
                                 }} defaultValue={defaultYear}/>
                     </div>
                     <div style={{clear: "both"}}/>
-                    <div style={{height: 300, width: "40%", float: "left"}}>
+                    <div style={{height: window.screen.width < 600 ? 200 : 300, width: "40%", float: "left"}}>
                         <h4>Результат ЕГЭ</h4>
                         <ResponsiveContainer>
                             <PieChart>
                                 <Pie data={sumGradesByExamType(this.state.data, "ЕГЭ", this.state.selectedYear)}
                                      dataKey="value"
-                                     outerRadius={60}>
+                                     outerRadius={window.screen.width < 600 ? 30 : 60}>
                                     {
                                         sumGradesByExamType(this.state.data, "ЕГЭ", this.state.selectedYear).map((entry, index) =>
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -90,19 +90,19 @@ export default class Dashboards extends React.Component {
                                 </Pie>
                                 <Pie data={avgScoreBySchool(this.state.data, "ЕГЭ", this.state.selectedYear)}
                                      dataKey="avg" label
-                                     innerRadius={70} outerRadius={90} fill="lightgray"/>
+                                     innerRadius={window.screen.width < 600 ? 30 : 70} outerRadius={window.screen.width < 600 ? 40 : 90} fill="lightgray"/>
                                 <Tooltip/>
                                 <Legend payload={pieLegend} />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                    <div style={{height: 300, width: "40%", float: "right"}}>
+                    <div style={{height: window.screen.width < 600 ? 200 : 300, width: "40%", float: "right"}}>
                         <h4>Результат ОГЭ</h4>
                         <ResponsiveContainer>
                             <PieChart>
                                 <Pie data={sumGradesByExamType(this.state.data, "ОГЭ", this.state.selectedYear)}
                                      dataKey="value"
-                                     outerRadius={60} fill="blue">
+                                     outerRadius={window.screen.width < 600 ? 30 : 60} fill="blue">
                                     {
                                         sumGradesByExamType(this.state.data, "ОГЭ", this.state.selectedYear).map((entry, index) =>
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>)
@@ -110,7 +110,7 @@ export default class Dashboards extends React.Component {
                                 </Pie>
                                 <Pie data={avgScoreBySchool(this.state.data, "ОГЭ", this.state.selectedYear)}
                                      dataKey="avg"
-                                     innerRadius={70} outerRadius={90} fill="lightgray" label/>
+                                     innerRadius={window.screen.width < 600 ? 30 : 70} outerRadius={window.screen.width < 600 ? 40 : 90} fill="lightgray" label/>
                                 <Tooltip/>
                                 <Legend payload={pieLegend} />
                             </PieChart>
@@ -138,7 +138,8 @@ export default class Dashboards extends React.Component {
                             data={doBarChart(this.state.data, this.state.barChartExam,
                                 this.state.barChartSubject, this.state.barChartYear)}
                             margin={{
-                                top: 5, right: 30, left: 20, bottom: 120,
+                                top: 5, right: 30, left: 20,
+                                bottom: window.screen.width < 920 ? (window.screen.width > 500 ? 150 : 210) : 120,
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3"/>

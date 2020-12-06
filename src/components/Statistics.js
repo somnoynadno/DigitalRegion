@@ -41,7 +41,7 @@ export default class Statistics extends React.Component {
                     onChange={async (event, {value}) => {
                         this.setState({exam: value});
                         await this.fetchStats();
-                    }} style={{float: "left"}}/>
+                    }} style={{float: window.screen.width < 600 ? "right" : "left"}}/>
                     <Divider hidden style={{clear: "both"}}/>
             {this.state.stats ?
                 <div>
