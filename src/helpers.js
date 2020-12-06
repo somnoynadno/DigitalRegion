@@ -1,3 +1,5 @@
+import {SUBJECTS, YEARS} from "./constans";
+
 export function sortArrayByKey(array, key, direction) {
     return array.sort(function (a, b) {
         let x = a[key];
@@ -179,4 +181,35 @@ export function doBarChart(array, exam, subject, period) {
     }
 
     return result;
+}
+
+export function avgScoreBySubjects(array, exam) {
+    let result = [];
+    let key = "Period";
+
+    for (let period of YEARS) {
+        let e = {};
+        e["Period"] = period.key;
+        for (let subject of SUBJECTS) {
+            e[subject.key] = 0;
+            e[subject.key + "_v"] = 0;
+        }
+        result.push(e);
+    }
+
+    for (let d of array) {
+        if (d["Exam"] === exam) {
+            let i = containsObjectByKey(d, result, "Period");
+            result[i][d["Subject"] + "_v"]++;
+            result[i][d["Subject"]] += d["Score"];
+        }
+    }
+
+    for (let i = 0; i < result.length; i++) {
+        for (let s of SUBJECTS) {
+            result[i][s.key] = Math.round(result[i][s.key] / result[i][s.key + "_v"]);
+        }
+    }
+
+    return sortArrayByKey(result, key, 'ascending')
 }

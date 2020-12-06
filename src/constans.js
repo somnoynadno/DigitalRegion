@@ -25,3 +25,18 @@ export const SUBJECTS = [
     {key: 'Химия', value: 'Химия', text: 'Химия'},
     {key: 'Литература', value: 'Литература', text: 'Литература'},
 ]
+
+export const MATERIAL = [
+    "#e53935",
+    "#d81b60",
+    "#8e24aa",
+    "#5e35b1",
+    "#1e88e5",
+    "#00acc1",
+    "#00897b",
+    "#43a047",
+    "#7cb342",
+    "#c0ca33",
+    "#fdd835",
+    "#ffb300"
+]

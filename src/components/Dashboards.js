@@ -15,10 +15,13 @@ import {
     YAxis
 } from 'recharts';
 import PropTypes from 'prop-types';
-import {avgScoreByExamType, avgScoreBySchool, doBarChart, sumGradesByExamType,} from "../helpers";
+import {avgScoreByExamType, avgScoreBySchool, avgScoreBySubjects, doBarChart, sumGradesByExamType,} from "../helpers";
 import {Divider, Select} from "semantic-ui-react";
-import {COLORS, EXAMS, SUBJECTS, YEARS} from "../constans";
+import {COLORS, EXAMS, MATERIAL, SUBJECTS, YEARS} from "../constans";
 
+const defaultYear = 2019;
+const defaultExam = 'ЕГЭ';
+const defaultSubject = 'Математика';
 
 export default class Dashboards extends React.Component {
     constructor(props) {
@@ -26,11 +29,13 @@ export default class Dashboards extends React.Component {
 
         this.state = {
             data: this.props.data,
-            selectedYear: 2019,
+            selectedYear: defaultYear,
 
-            barChartYear: null,
-            barChartSubject: null,
-            barChartExam: null,
+            barChartYear: defaultYear,
+            barChartSubject: defaultSubject,
+            barChartExam: defaultExam,
+
+            selectedExam: defaultExam,
         }
     }
 
@@ -67,7 +72,7 @@ export default class Dashboards extends React.Component {
                         <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
                                 onChange={(event, {value}) => {
                                     this.setState({selectedYear: value})
-                                }}/>
+                                }} defaultValue={defaultYear}/>
                     </div>
                     <div style={{clear: "both"}}/>
                     <div style={{height: 300, width: "40%", float: "left"}}>
@@ -83,9 +88,10 @@ export default class Dashboards extends React.Component {
                                     }
                                 </Pie>
                                 <Pie data={avgScoreBySchool(this.state.data, "ЕГЭ", this.state.selectedYear)}
-                                     dataKey="avg"
-                                     innerRadius={70} outerRadius={90} fill="lightgray" label/>
+                                     dataKey="avg" label
+                                     innerRadius={70} outerRadius={90} fill="lightgray"/>
                                 <Tooltip/>
+                                <Legend payload={pieLegend} />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
@@ -105,25 +111,26 @@ export default class Dashboards extends React.Component {
                                      dataKey="avg"
                                      innerRadius={70} outerRadius={90} fill="lightgray" label/>
                                 <Tooltip/>
+                                <Legend payload={pieLegend} />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
                 <Divider/>
-                <div style={{height: 270, marginBottom: 30}}>
+                <div style={{height: 270, marginBottom: 150}}>
                     <h2 style={{textAlign: "center"}}>Распределение баллов для предмета</h2>
                     <Select placeholder='Выберите год' options={YEARS} style={{float: "right"}}
                             onChange={(event, {value}) => {
                                 this.setState({barChartYear: value})
-                            }}/>
+                            }} defaultValue={defaultYear}/>
                     <Select placeholder='Выберите экзамен' options={EXAMS} style={{float: "right"}}
                             onChange={(event, {value}) => {
                                 this.setState({barChartExam: value})
-                            }}/>
+                            }} defaultValue={defaultExam}/>
                     <Select placeholder='Выберите предмет' options={SUBJECTS} style={{float: "right"}}
                             onChange={(event, {value}) => {
                                 this.setState({barChartSubject: value})
-                            }}/>
+                            }} defaultValue={defaultSubject}/>
                     <div style={{clear: "both"}}/>
                     <br/>
                     <ResponsiveContainer>
@@ -145,6 +152,35 @@ export default class Dashboards extends React.Component {
                     <br/>
                     <br/>
                 </div>
+                <Divider/>
+                <div style={{height: 400, marginBottom: 30}}>
+                    <h2 style={{textAlign: "center"}}>Динамика баллов по предметам</h2>
+                    <Select placeholder='Выберите экзамен' options={EXAMS} style={{float: "right"}}
+                            onChange={(event, {value}) => {
+                                this.setState({selectedExam: value})
+                            }} defaultValue={defaultExam}/>
+                    <div style={{clear: "both"}}/>
+                    <ResponsiveContainer>
+                        <LineChart
+                            data={avgScoreBySubjects([...this.state.data], this.state.selectedExam)}
+                            margin={{
+                                top: 10, right: 30, left: 20, bottom: 30,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <XAxis dataKey="Period"/>
+                            <YAxis domain={['auto', 'auto']}/>
+                            <Tooltip/>
+                            <Legend/>
+                            {
+                                SUBJECTS.map((s, i) => {
+                                    return <Line key={i} name={s.key} type="monotone" dataKey={s.key}
+                                                 stroke={MATERIAL[i]}/>
+                                })
+                            }
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         );
     }
@@ -153,3 +189,6 @@ export default class Dashboards extends React.Component {
 Dashboards.propTypes = {
     data: PropTypes.array.required
 };
+
+let pieLegend = [];
+for (let i = 0; i < COLORS.length; i++) pieLegend.push({ value: 5-i, type: 'rect', id: i, color: COLORS[i] });
