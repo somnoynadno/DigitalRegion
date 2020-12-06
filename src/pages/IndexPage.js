@@ -52,7 +52,7 @@ export default class IndexPage extends React.Component {
         return (
             <Container>
                 <Image src={barsgroup} onClick={() => this.handleItemClick(null, "")}
-                       style={{padding: "20px"}} size='small'/>
+                       style={{padding: "20px"}} size='medium'/>
                 <Grid stackable columns={2}>
                     <Grid.Column width={4}>
                         <Menu fluid vertical tabular icon='labeled'>
